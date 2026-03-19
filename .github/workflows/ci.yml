@@ -38,14 +38,27 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Unit Tests
+      - name: Core Unit Tests
         run: >-
           dotnet test
           tests/EntityFrameworkCore.ManagedViews.Tests
+          --no-build --configuration Release
+          --collect:"XPlat Code Coverage"
+          --results-directory ./coverage
+
+      - name: PostgreSQL Unit Tests
+        run: >-
+          dotnet test
           tests/EntityFrameworkCore.ManagedViews.PostgreSQL.Tests
           --no-build --configuration Release
           --collect:"XPlat Code Coverage"
           --results-directory ./coverage
+
+      - name: Functional Tests
+        run: >-
+          dotnet test
+          tests/EntityFrameworkCore.ManagedViews.FunctionalTests
+          --no-build --configuration Release
 
       - name: Integration Tests
         run: >-
