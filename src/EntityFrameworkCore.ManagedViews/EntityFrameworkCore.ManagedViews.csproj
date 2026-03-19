@@ -6,9 +6,9 @@
     <Authors>Nejdet</Authors>
     <PackageTags>efcore;entity-framework;views;migrations;database;code-first;managed-views</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/nejdet/EntityFrameworkCore.ManagedViews</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nejdetkadir/efcore-managed-views</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/nejdet/EntityFrameworkCore.ManagedViews</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/nejdetkadir/efcore-managed-views</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>

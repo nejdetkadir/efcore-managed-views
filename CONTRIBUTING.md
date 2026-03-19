@@ -16,7 +16,7 @@ Thank you for your interest in contributing. This guide covers everything you ne
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/<your-username>/EntityFrameworkCore.ManagedViews.git`
+2. Clone your fork: `git clone https://github.com/<your-username>/efcore-managed-views.git`
 3. Create a feature branch: `git checkout -b feature/my-feature`
 4. Make your changes
 5. Push to your fork: `git push origin feature/my-feature`
@@ -105,7 +105,7 @@ For a detailed breakdown of each component, see the [Architecture Guide](docs/AR
 
 ### Adding a Feature
 
-1. Check existing [issues](https://github.com/nejdet/EntityFrameworkCore.ManagedViews/issues) to see if it has been discussed
+1. Check existing [issues](https://github.com/nejdetkadir/efcore-managed-views/issues) to see if it has been discussed
 2. Open an issue describing the feature before writing code
 3. Reference the issue in your PR
 
@@ -211,4 +211,4 @@ Use the [feature request template](.github/ISSUE_TEMPLATE/feature_request.md) an
 
 ## Questions?
 
-For questions about using ManagedViews, open a [discussion](https://github.com/nejdet/EntityFrameworkCore.ManagedViews/discussions) rather than an issue.
+For questions about using ManagedViews, open a [discussion](https://github.com/nejdetkadir/efcore-managed-views/discussions) rather than an issue.

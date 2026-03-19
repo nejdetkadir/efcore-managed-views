@@ -1,6 +1,6 @@
 # EntityFrameworkCore.ManagedViews
 
-[![CI](https://github.com/nejdet/EntityFrameworkCore.ManagedViews/actions/workflows/ci.yml/badge.svg)](https://github.com/nejdet/EntityFrameworkCore.ManagedViews/actions/workflows/ci.yml)
+[![CI](https://github.com/nejdetkadir/efcore-managed-views/actions/workflows/ci.yml/badge.svg)](https://github.com/nejdetkadir/efcore-managed-views/actions/workflows/ci.yml)
 [![NuGet](https://img.shields.io/nuget/v/EntityFrameworkCore.ManagedViews.svg)](https://www.nuget.org/packages/EntityFrameworkCore.ManagedViews)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/EntityFrameworkCore.ManagedViews.svg)](https://www.nuget.org/packages/EntityFrameworkCore.ManagedViews)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

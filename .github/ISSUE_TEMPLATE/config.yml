@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Questions & Discussion
-    url: https://github.com/nejdet/EntityFrameworkCore.ManagedViews/discussions
+    url: https://github.com/nejdetkadir/efcore-managed-views/discussions
     about: Ask questions and share ideas in GitHub Discussions
   - name: Security Vulnerability
-    url: https://github.com/nejdet/EntityFrameworkCore.ManagedViews/blob/main/SECURITY.md
+    url: https://github.com/nejdetkadir/efcore-managed-views/blob/main/SECURITY.md
     about: Report security vulnerabilities privately (do not open a public issue)
