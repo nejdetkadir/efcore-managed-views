@@ -1,0 +1,61 @@
+---
+description: "C# coding standards for EntityFrameworkCore.ManagedViews. Enforces naming, style, documentation, and analyzer conventions."
+globs: "**/*.cs"
+---
+
+# C# Coding Standards
+
+## Language & Framework
+
+- Target: `net10.0`, LangVersion: `latest`
+- Nullable reference types: **enabled** project-wide
+- File-scoped namespaces: **required** (`namespace Foo;`, not `namespace Foo { }`)
+- `TreatWarningsAsErrors: true` -- every warning is a build error
+- `EnforceCodeStyleInBuild: true`
+- `AnalysisLevel: latest-all` -- all .NET analyzers enabled
+
+## Naming Conventions
+
+- Private fields: `_camelCase` (e.g., `_viewHasher`)
+- Interfaces: `I` prefix with PascalCase (e.g., `IManagedViewProvider`)
+- Classes, methods, properties: PascalCase
+- Parameters, local variables: camelCase
+- Constants: PascalCase (e.g., `DefaultSchema`)
+
+## Class Design
+
+- Prefer `sealed` classes unless inheritance is explicitly intended
+- One class per file (filename matches class name)
+- Use `record` types for immutable data models
+- Constructor parameters: validate with `ArgumentNullException.ThrowIfNull()`
+- String parameters: validate with `ArgumentException.ThrowIfNullOrWhiteSpace()`
+
+## XML Documentation
+
+All public types and members **must** have XML docs:
+
+```csharp
+/// <summary>
+/// Discovers managed view definitions from embedded SQL files.
+/// </summary>
+/// <param name="assembly">The assembly containing embedded SQL resources.</param>
+/// <returns>A collection of discovered view definitions.</returns>
+public IReadOnlyList<IManagedViewDefinition> Discover(Assembly assembly)
+```
+
+## Error Handling
+
+Use the custom exception hierarchy rooted at `ManagedViewException`:
+- `ManagedViewSqlParseException` -- SQL parsing failures
+- `ManagedViewProviderException` -- provider-specific errors
+- `ManagedViewDependencyCycleException` -- circular view dependencies
+- `ManagedViewDuplicateException` -- duplicate view names
+- `ManagedViewNotFoundException` -- view not found
+
+Never throw raw `Exception` or `ApplicationException`.
+
+## Dependencies
+
+- Core package: no unnecessary dependencies beyond EF Core
+- Provider packages: only depend on core + their database driver
+- Use `TryAddSingleton` / `TryAddScoped` to allow DI overrides

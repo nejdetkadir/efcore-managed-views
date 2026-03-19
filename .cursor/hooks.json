@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "dotnet format --include {{filePath}} --verbosity quiet",
+        "description": "Auto-format C# files after edit",
+        "pattern": "**/*.cs"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "node .cursor/scripts/validate-command.js",
+        "description": "Block dangerous shell commands"
+      }
+    ]
+  }
+}

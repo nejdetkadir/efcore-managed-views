@@ -1,0 +1,54 @@
+---
+description: "Architecture rules for EntityFrameworkCore.ManagedViews. Two-package design, interface contracts, DI registration, pipeline flow."
+alwaysApply: false
+---
+
+# Architecture Rules
+
+## Package Design
+
+Two packages, strictly separated:
+
+1. **EntityFrameworkCore.ManagedViews** (core) -- database-agnostic
+   - All interfaces in `Abstractions/`
+   - Discovery, hashing, diffing, dependency resolution, snapshots, tracking
+   - Custom migration operations
+   - Design-time services
+
+2. **EntityFrameworkCore.ManagedViews.PostgreSQL** -- PostgreSQL only
+   - `IManagedViewProvider` implementation
+   - `IMigrationsSqlGenerator` extension
+   - `UseNpgsqlManagedViews()` extension method
+
+## Key Interfaces
+
+| Interface | Responsibility |
+|-----------|---------------|
+| `IManagedViewDiscovery` | Discover view definitions from SQL files or fluent API |
+| `IManagedViewHasher` | Hash view SQL for change detection |
+| `IManagedViewDiffer` | Compare current definitions against snapshot |
+| `IManagedViewDependencyResolver` | Topological sort for view creation order |
+| `IManagedViewSnapshotStore` | Persist design-time state to JSON |
+| `IManagedViewHistoryRepository` | Runtime tracking table operations |
+| `IManagedViewProvider` | Generate database-specific DDL |
+
+## Service Registration
+
+- Core services register via `ManagedViewOptionsExtension.ApplyServices`
+- Provider services register via provider-specific `IDbContextOptionsExtension`
+- Use factory methods for scoped services needing `DbContext` (avoids circular DI)
+- Example: `IManagedViewHistoryRepository` resolves `ICurrentDbContext.Context`
+
+## Pipeline Flow
+
+Design-time: Discovery -> Hashing -> Diffing -> Dependency Resolution -> Migration Generation -> Snapshot
+
+Runtime: Discovery -> Hashing -> History Comparison -> Drift Report
+
+## Adding New Components
+
+1. Define interface in `Abstractions/`
+2. Implement in the correct namespace directory
+3. Register in `ApplyServices` with `TryAddSingleton` / `TryAddScoped`
+4. Write tests covering 100% of the new code
+5. Add XML docs on all public members

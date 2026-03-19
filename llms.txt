@@ -1,0 +1,40 @@
+# EntityFrameworkCore.ManagedViews
+
+> Code-first view management for Entity Framework Core
+
+EntityFrameworkCore.ManagedViews is a .NET library that brings database view lifecycle management to Entity Framework Core. It allows developers to define, version, track, and migrate database views (including PostgreSQL materialized views) using the same code-first workflow they already use for tables.
+
+## Key Features
+
+- SQL file view definitions with metadata directives
+- Fluent API view definitions via ModelBuilder.HasManagedView()
+- SHA256 change detection with SQL normalization
+- Design-time JSON snapshots for CI/CD
+- Runtime tracking table for drift detection
+- Topological sort dependency resolution
+- PostgreSQL materialized view support with indexes and refresh
+- Custom EF Core migration operations
+
+## Packages
+
+- EntityFrameworkCore.ManagedViews: Core abstractions, discovery, hashing, diffing, snapshots, dependency resolution, tracking, migrations
+- EntityFrameworkCore.ManagedViews.PostgreSQL: PostgreSQL provider with materialized view and index support
+
+## Links
+
+- Implementation Guide: IMPLEMENTATION.md
+- Architecture: docs/ARCHITECTURE.md
+- Provider Guide: docs/PROVIDERS.md
+- Contributing: CONTRIBUTING.md
+- Changelog: CHANGELOG.md
+
+## Tech Stack
+
+- .NET 10, C#
+- Entity Framework Core 10.x
+- PostgreSQL via Npgsql 10.x
+- xUnit, FluentAssertions, NSubstitute, Testcontainers
+
+## Architecture
+
+Two-package design: a database-agnostic core (discovery, hashing, diffing, dependency resolution, snapshots, tracking, migrations) and a PostgreSQL provider (DDL generation, migration SQL generator). Services integrate into EF Core's internal DI via IDbContextOptionsExtension.

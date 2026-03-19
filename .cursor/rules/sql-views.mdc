@@ -1,0 +1,50 @@
+---
+description: "SQL view file conventions for EntityFrameworkCore.ManagedViews. Covers directive syntax, naming, schema inference, and embedded resource setup."
+globs: "**/*.sql"
+---
+
+# SQL View File Conventions
+
+## Directives
+
+SQL view files use comment-based directives:
+
+```sql
+-- @viewName: vw_active_products
+-- @schema: public
+-- @type: view
+-- @dependsOn: vw_base_products, vw_categories
+-- @indexes: idx_name(column1); idx_other(col2 DESC)
+```
+
+| Directive | Required | Description |
+|-----------|----------|-------------|
+| `@viewName` | No | Inferred from filename if omitted |
+| `@schema` | No | Inferred from filename or defaults to `public` |
+| `@type` | No | `view` (default) or `materialized` |
+| `@dependsOn` | No | Comma-separated list of views this depends on |
+| `@indexes` | No | Semicolon-separated index definitions (materialized only) |
+
+## File Naming
+
+Files are named: `[schema.]viewName.sql`
+
+- `vw_active_products.sql` -> name: `vw_active_products`, schema: default
+- `catalog.vw_products.sql` -> name: `vw_products`, schema: `catalog`
+
+## Embedded Resources
+
+SQL files must be embedded resources in the `.csproj`:
+
+```xml
+<ItemGroup>
+  <EmbeddedResource Include="Views/**/*.sql" />
+</ItemGroup>
+```
+
+## Materialized Views
+
+- Set `@type: materialized`
+- Use `@indexes` for CREATE INDEX statements
+- Only PostgreSQL provider supports materialized views currently
+- Refreshed at runtime via `context.RefreshMaterializedViewAsync()`

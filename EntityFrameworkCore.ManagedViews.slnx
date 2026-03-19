@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/Sample.ECommerce/Sample.ECommerce.csproj" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Project Path="src/EntityFrameworkCore.ManagedViews.PostgreSQL/EntityFrameworkCore.ManagedViews.PostgreSQL.csproj" />
+  <Project Path="src/EntityFrameworkCore.ManagedViews/EntityFrameworkCore.ManagedViews.csproj" />
+  <Project Path="tests/EntityFrameworkCore.ManagedViews.FunctionalTests/EntityFrameworkCore.ManagedViews.FunctionalTests.csproj" />
+  <Project Path="tests/EntityFrameworkCore.ManagedViews.IntegrationTests/EntityFrameworkCore.ManagedViews.IntegrationTests.csproj" />
+  <Project Path="tests/EntityFrameworkCore.ManagedViews.PostgreSQL.Tests/EntityFrameworkCore.ManagedViews.PostgreSQL.Tests.csproj" />
+  <Project Path="tests/EntityFrameworkCore.ManagedViews.Tests/EntityFrameworkCore.ManagedViews.Tests.csproj" />
+</Solution>

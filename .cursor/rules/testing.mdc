@@ -1,0 +1,69 @@
+---
+description: "Testing conventions for EntityFrameworkCore.ManagedViews. Covers xUnit patterns, FluentAssertions, NSubstitute, Testcontainers, naming, and coverage requirements."
+globs: "tests/**/*.cs"
+---
+
+# Testing Standards
+
+## Framework Stack
+
+- Test runner: **xUnit**
+- Assertions: **FluentAssertions** (`.Should()` API)
+- Mocking: **NSubstitute**
+- Integration DB: **Testcontainers.PostgreSql** (Docker required)
+
+## Test Naming
+
+```
+MethodUnderTest_Scenario_ExpectedResult
+```
+
+Examples:
+- `Discover_WithEmbeddedSqlFiles_ReturnsDefinitions`
+- `Hash_NullInput_ThrowsArgumentNullException`
+- `Diff_NoChanges_ReturnsEmptyList`
+- `RefreshMaterializedViewAsync_NullViewName_ThrowsArgumentException`
+
+## Test Structure
+
+- `[Fact]` for single cases
+- `[Theory]` + `[InlineData]` for parameterized cases
+- One assertion concept per test method
+- Arrange-Act-Assert pattern
+
+## Test Projects
+
+| Project | Type | Database |
+|---------|------|----------|
+| `EntityFrameworkCore.ManagedViews.Tests` | Unit | No |
+| `EntityFrameworkCore.ManagedViews.PostgreSQL.Tests` | Unit | No |
+| `EntityFrameworkCore.ManagedViews.IntegrationTests` | Integration | Docker |
+| `EntityFrameworkCore.ManagedViews.FunctionalTests` | Functional | No |
+
+## Coverage
+
+- Target: **100% line coverage, 100% method coverage**
+- Never introduce uncovered lines
+- Run: `dotnet test --collect:"XPlat Code Coverage" --results-directory ./coverage-results`
+
+## Integration Test Pattern
+
+```csharp
+public sealed class MyIntegrationTest : IAsyncLifetime
+{
+    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder().Build();
+
+    public Task InitializeAsync() => _container.StartAsync();
+    public Task DisposeAsync() => _container.DisposeAsync().AsTask();
+
+    [Fact]
+    public async Task Test_Something()
+    {
+        var builder = new DbContextOptionsBuilder<DbContext>()
+            .UseNpgsql(_container.GetConnectionString())
+            .UseNpgsqlManagedViews()
+            .EnableServiceProviderCaching(false);
+        // ...
+    }
+}
+```
